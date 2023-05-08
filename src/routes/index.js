@@ -3,9 +3,11 @@ const appDir = dirname(require.main.filename);
 const c = require(appDir + '/controllers/')
 
 const textMessage = async (client, usersChat, usersMessage) => {
-    
+
+
     if((usersMessage).startsWith('/register ')) {
         await (new c.Register(client, usersChat, usersMessage)).init()
+        return;
     }
 
     if((usersMessage).startsWith('/voting'))
@@ -13,6 +15,12 @@ const textMessage = async (client, usersChat, usersMessage) => {
 
     if((usersMessage).startsWith('/addimage '))
         await (new c.Admin(client, usersChat, usersMessage)).addImage()
+    
+        if(usersMessage){
+            await (new c.Guest(client, usersChat, usersMessage)).Guest()
+            return;
+        }
+
 
 }
 
